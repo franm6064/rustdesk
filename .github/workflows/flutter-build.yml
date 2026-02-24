@@ -49,6 +49,10 @@ env:
   RENDEZVOUS_SERVER: ${{ vars.RENDEZVOUS_SERVER }}
   RS_PUB_KEY: ${{ vars.RS_PUB_KEY }}
   API_SERVER: ${{ vars.API_SERVER }}
+  RENDEZVOUS_SERVER1: ${{ vars.RENDEZVOUS_SERVER }}
+  RENDEZVOUS_SERVER2: ${{ vars.RENDEZVOUS_SERVER }}
+  RENDEZVOUS_SERVER3: ${{ vars.RENDEZVOUS_SERVER }}
+  RS_PUB_KEY_VAL: ${{ vars.RS_PUB_KEY }}
 
 jobs:
   generate-bridge:
