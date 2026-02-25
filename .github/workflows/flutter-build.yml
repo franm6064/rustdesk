@@ -95,7 +95,7 @@ jobs:
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -104,10 +104,6 @@ uses: actions/checkout@v4
         run: |
           git apply .github/patches/hardcode-server.patch
 
-      - name: Apply hardcoded server patch
-        shell: bash
-        run: |
-          git apply .github/patches/hardcode-server.patch
 
       - name: Restore bridge files
         uses: actions/download-artifact@master
@@ -326,7 +322,7 @@ uses: actions/checkout@v4
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -334,6 +330,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Install LLVM and Clang
         uses: rustdesk-org/install-llvm-action-32bit@master
@@ -481,7 +478,7 @@ uses: actions/checkout@v4
         run: |
           brew install nasm yasm
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -489,6 +486,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Install flutter
         uses: subosito/flutter-action@v2
@@ -611,7 +609,7 @@ uses: actions/checkout@v4
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -619,6 +617,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Import the codesign cert
         if: env.MACOS_P12_BASE64 != null
@@ -929,7 +928,7 @@ uses: actions/checkout@v4
                wget
 
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -937,6 +936,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Install flutter
         uses: subosito/flutter-action@v2
@@ -1206,7 +1206,7 @@ uses: actions/checkout@v4
                wget
 
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -1214,6 +1214,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Install flutter
         uses: subosito/flutter-action@v2
@@ -1376,7 +1377,7 @@ uses: actions/checkout@v4
           fi
 
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -1384,6 +1385,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Set Swap Space
         if: ${{ matrix.job.arch == 'x86_64' }}
@@ -1711,7 +1713,7 @@ uses: actions/checkout@v4
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -1719,6 +1721,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Modify vcpkg.json for armv7
         if: matrix.job.vcpkg-triplet == 'arm-linux'
@@ -1918,7 +1921,7 @@ uses: actions/checkout@v4
           - { target: aarch64-unknown-linux-gnu, arch: aarch64 }
     steps:
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -1926,6 +1929,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Download Binary
         uses: actions/download-artifact@master
@@ -1996,7 +2000,7 @@ uses: actions/checkout@v4
             }
     steps:
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -2004,6 +2008,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Download Binary
         uses: actions/download-artifact@master
@@ -2062,7 +2067,7 @@ uses: actions/checkout@v4
       RELEASE_NAME: web-basic
     steps:
       - name: Checkout source code
-uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -2070,6 +2075,7 @@ uses: actions/checkout@v4
         shell: bash
         run: |
           git apply .github/patches/hardcode-server.patch
+
 
       - name: Prepare env
         run: |
