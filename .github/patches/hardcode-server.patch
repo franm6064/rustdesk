@@ -1,0 +1,31 @@
+diff --git a/libs/hbb_common/src/config.rs b/libs/hbb_common/src/config.rs
+index 1bdd383..0a24516 100644
+--- a/libs/hbb_common/src/config.rs
++++ b/libs/hbb_common/src/config.rs
+@@ -56,7 +56,9 @@ lazy_static::lazy_static! {
+     static ref STATUS: RwLock<Status> = RwLock::new(Status::load());
+     static ref TRUSTED_DEVICES: RwLock<(Vec<TrustedDevice>, bool)> = Default::default();
+     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
+-    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
++    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new(
++        option_env!("RENDEZVOUS_SERVER").unwrap_or("").to_owned()
++    );
+     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
+     pub static ref APP_NAME: RwLock<String> = RwLock::new("RustDesk".to_owned());
+     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
+@@ -106,8 +108,13 @@ const CHARS: &[char] = &[
+     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+ ];
+
+-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
+-pub const RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
++pub const RENDEZVOUS_SERVERS: &[&str] = &[
++    option_env!("RENDEZVOUS_SERVER1").unwrap_or("rs-ny.rustdesk.com"),
++    option_env!("RENDEZVOUS_SERVER2").unwrap_or(""),
++    option_env!("RENDEZVOUS_SERVER3").unwrap_or(""),
++];
++pub const RS_PUB_KEY: &str = option_env!("RS_PUB_KEY_VAL")
++    .unwrap_or(option_env!("RS_PUB_KEY").unwrap_or("OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw="));
+
+ pub const RENDEZVOUS_PORT: i32 = 21116;
+ pub const RELAY_PORT: i32 = 21117;
