@@ -34,3 +34,19 @@ index 1bdd383..958d40b 100644
  
  pub const RENDEZVOUS_PORT: i32 = 21116;
  pub const RELAY_PORT: i32 = 21117;
+diff --git a/src/common.rs b/src/common.rs
+index bba453c34..c09818e93 100644
+--- a/src/common.rs
++++ b/src/common.rs
+@@ -1069,6 +1069,11 @@ fn get_api_server_(api: String, custom: String) -> String {
+             return lic.api.clone();
+         }
+     }
++    if let Some(s) = option_env!("API_SERVER") {
++        if !s.is_empty() {
++            return s.to_owned();
++        }
++    }
+     if !api.is_empty() {
+         return api.to_owned();
+     }
