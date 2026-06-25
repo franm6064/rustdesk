@@ -30,7 +30,6 @@ fn run_rdp(port: u16) {
         if !password.is_empty() {
             args.push(format!("/pass:{}", password));
         }
-        println!("{:?}", args);
         std::process::Command::new("cmdkey")
             .args(&args)
             .output()
@@ -54,7 +53,7 @@ pub async fn listen(
     remote_host: String,
     remote_port: i32,
 ) -> ResultType<()> {
-    let listener = tcp::new_listener(format!("0.0.0.0:{}", port), true).await?;
+    let listener = tcp::new_listener(format!("127.0.0.1:{}", port), true).await?;
     let addr = listener.local_addr()?;
     log::info!("listening on port {:?}", addr);
     let is_rdp = port == 0;
