@@ -52,6 +52,13 @@ env:
   MACOS_P12_BASE64: "${{ secrets.MACOS_P12_BASE64 }}"
   UPLOAD_ARTIFACT: "${{ inputs.upload-artifact }}"
   SIGN_BASE_URL: "${{ secrets.SIGN_BASE_URL }}-2"
+  RENDEZVOUS_SERVER: ${{ vars.RENDEZVOUS_SERVER }}
+  RS_PUB_KEY: ${{ vars.RS_PUB_KEY }}
+  API_SERVER: ${{ vars.API_SERVER }}
+  RENDEZVOUS_SERVER1: ${{ vars.RENDEZVOUS_SERVER }}
+  RENDEZVOUS_SERVER2: ${{ vars.RENDEZVOUS_SERVER }}
+  RENDEZVOUS_SERVER3: ${{ vars.RENDEZVOUS_SERVER }}
+  RS_PUB_KEY_VAL: ${{ vars.RS_PUB_KEY }}
 
 jobs:
   generate-sbom:
@@ -64,6 +71,11 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
 
       - name: Install Syft
         uses: anchore/sbom-action/download-syft@v0
@@ -146,6 +158,11 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
 
       - name: Restore bridge files
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -492,6 +509,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Install LLVM and Clang
         uses: rustdesk-org/install-llvm-action-32bit@6aa7d9ad3df84dff01cd4596dd0fc880a7f47fce # no release tag; commit 2026-05-26
         with:
@@ -652,6 +674,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Install flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
@@ -778,6 +805,11 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
 
       - name: Import the codesign cert
         if: env.MACOS_P12_BASE64 != null
@@ -1120,6 +1152,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Install flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
@@ -1393,6 +1430,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Install flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
@@ -1559,6 +1601,11 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
 
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c # v1.0
@@ -1886,6 +1933,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c # v1.0
         with:
@@ -2212,6 +2264,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Modify vcpkg.json for armv7
         if: matrix.job.vcpkg-triplet == 'arm-linux'
         run: |
@@ -2429,6 +2486,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Download Binary
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -2505,6 +2567,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
+
       - name: Download Binary
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -2565,6 +2632,11 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply hardcoded server patch
+        shell: bash
+        run: |
+          git apply .github/patches/hardcode-server.patch
 
       - name: Prepare env
         run: |

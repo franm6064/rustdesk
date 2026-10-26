@@ -1,0 +1,52 @@
+diff --git a/libs/hbb_common/src/config.rs b/libs/hbb_common/src/config.rs
+index 1bdd383..958d40b 100644
+--- a/libs/hbb_common/src/config.rs
++++ b/libs/hbb_common/src/config.rs
+@@ -56,7 +56,9 @@ lazy_static::lazy_static! {
+     static ref STATUS: RwLock<Status> = RwLock::new(Status::load());
+     static ref TRUSTED_DEVICES: RwLock<(Vec<TrustedDevice>, bool)> = Default::default();
+     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
+-    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
++    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new(
++        match option_env!("RENDEZVOUS_SERVER") { Some(s) => s, None => "" }.to_owned()
++    );
+     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
+     pub static ref APP_NAME: RwLock<String> = RwLock::new("RustDesk".to_owned());
+     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
+@@ -106,8 +108,18 @@ const CHARS: &[char] = &[
+     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+ ];
+ 
+-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
+-pub const RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
++pub const RENDEZVOUS_SERVERS: &[&str] = &[
++    match option_env!("RENDEZVOUS_SERVER1") { Some(s) => s, None => "rs-ny.rustdesk.com" },
++    match option_env!("RENDEZVOUS_SERVER2") { Some(s) => s, None => "" },
++    match option_env!("RENDEZVOUS_SERVER3") { Some(s) => s, None => "" },
++];
++pub const RS_PUB_KEY: &str = match option_env!("RS_PUB_KEY_VAL") {
++    Some(s) => s,
++    None => match option_env!("RS_PUB_KEY") {
++        Some(s) => s,
++        None => "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=",
++    },
++};
+ 
+ pub const RENDEZVOUS_PORT: i32 = 21116;
+ pub const RELAY_PORT: i32 = 21117;
+diff --git a/src/common.rs b/src/common.rs
+index bba453c34..c09818e93 100644
+--- a/src/common.rs
++++ b/src/common.rs
+@@ -1069,6 +1069,11 @@ fn get_api_server_(api: String, custom: String) -> String {
+             return lic.api.clone();
+         }
+     }
++    if let Some(s) = option_env!("API_SERVER") {
++        if !s.is_empty() {
++            return s.to_owned();
++        }
++    }
+     if !api.is_empty() {
+         return api.to_owned();
+     }
